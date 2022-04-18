@@ -2,7 +2,7 @@
 A project created by ChickenChunk579
 
 # Installation
-As of now, no versions of Prism have been officialy released. If you want, you can build it from source.
+Run 
 
 # Building from source
 1. Using git, clone this repository
