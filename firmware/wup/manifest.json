@@ -1,0 +1,6 @@
+{
+    "displayName": "Test Game",
+    "id": "10101010",
+    "startCmd": "python3 $(ROOT)/main.py",
+    "iconPath": "./wup/icon.png"
+}

@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run vPrism",
+            "type": "shell",
+            "command": "bash ${workspaceFolder}/start.sh",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build WUP",
+            "type": "shell",
+            "command": "bash ${workspaceFolder}/build.sh",
+            "group": "build"
+        }
+    ]
+}
