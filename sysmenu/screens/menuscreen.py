@@ -64,6 +64,9 @@ def update(dt):
         openButtonWindow()
         clockWindow()
         volumeWindow()
+        settingsWindow()
+        if os.path.exists("./save/00000000/developerMode"):
+            developmentModeWindow()
         imgui.render()
         renderer.render(imgui.get_draw_data())
 
@@ -91,7 +94,6 @@ def openButtonWindow():
 
     createWupButtons()
 
-
     imgui.end()
 
 def buttonWindowInit():
@@ -105,6 +107,7 @@ def getWupPaths():
             wupPaths.append(filepath)
 
 def createWupButtons():
+
     for filepath in wupPaths:
         manifest = wup.load_wup_manifest("./titles/" + filepath)
         if imgui.button(manifest["displayName"]):
@@ -124,5 +127,32 @@ def volumeWindow():
 
     if changed:
         os.system(f"amixer -D pulse sset Master {int(value)}%")
+
+    imgui.end()
+
+def settingsWindow():
+    imgui.begin("Settings")
+    imgui.text("Development Mode")
+    if os.path.exists("./save/00000000/developerMode"):
+        if imgui.color_button("Disable Development Mode", 0, 1, 0):
+            os.remove("./save/00000000/developerMode")
+            print("Disabled developer mode")
+    else:
+        if imgui.color_button("Enable Development Mode", 1, 0, 0):
+            open("./save/00000000/developerMode", "w").write("You can delete me, but it will disable development mode.")
+            print("Enable Development Mode")
+
+    imgui.end()
+
+def developmentModeWindow():
+    imgui.begin("Development")
+
+    value = imgui.input_text("Path to WUP to install", "", 1024)
+    if imgui.button("Install"):
+        packageManifest = wup.load_wup_manifest(value)
+        print("Installing title " + packageManifest["displayName"])
+        os.system("cp " + value + "./titles/" + value.split("/")[len(value.split("/"))])
+    
+    imgui.text("Notice: You need to reboot for the title to load.")
 
     imgui.end()
